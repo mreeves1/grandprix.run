@@ -17,7 +17,7 @@ folders:
       to: "/home/vagrant/grandprix-run"
 
 sites:
-    - map: homestead.app
+    - map: grandprix-run
       to: "/home/vagrant/grandprix-run/public"
 
 databases:
