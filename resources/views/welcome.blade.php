@@ -38,7 +38,11 @@
     <body>
         <div class="container">
             <div class="content">
+                <h1 class="title">Welcome to<br>Grandprix.run</h1>
+                Let's go to <a href="/records">records</a>!
+<!--
                 <div class="title">Laravel 5</div>
+-->
             </div>
         </div>
     </body>
