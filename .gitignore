@@ -6,6 +6,7 @@
 # PHP
 vendor/
 node_modules/
+www.pid
 
 # Laravel 4 specific
 bootstrap/compiled.php
