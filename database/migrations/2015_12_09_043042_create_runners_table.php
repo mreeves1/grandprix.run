@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecordsTable extends Migration
+class CreateRunnersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,14 @@ class CreateRecordsTable extends Migration
      */
     public function up()
     {
-        Schema::create('records', function (Blueprint $table) {
+        Schema::create('runners', function (Blueprint $table) {
             $table->increments('id');
             $table->string('first_name', 100);
             $table->string('last_name', 100);
-            $table->integer('age')->nullable(); // not sure which we can depend on
+            $table->string('email', 255);
             $table->date('birth_date')->nullable();
             $table->foreign('gender_id')->references('id')->on('genders');
-            $table->foreign('distance_id')->references('id')->on('distances');
-            $table->date('race_date');
-            $table->string('race_location', 255)->nullable();
-            $table->string('race_notes', 255)->nullable();
+            $table->foreign('club_id')->references('id')->on('clubs'); // only one club for now
             $table->boolean('active')->default(false);
             $table->timestamps();
         });
@@ -35,6 +32,6 @@ class CreateRecordsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('records');
+        Schema::drop('runners');
     }
 }
