@@ -15,6 +15,7 @@ class CreateRacesTable extends Migration
         Schema::create('races', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 200);
+            $table->integer('distance_id')->unsigned();
             $table->foreign('distance_id')->references('id')->on('distances');
             $table->text('description');
             $table->string('address1', 100);

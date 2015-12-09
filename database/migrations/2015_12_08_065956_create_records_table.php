@@ -18,7 +18,9 @@ class CreateRecordsTable extends Migration
             $table->string('last_name', 100);
             $table->integer('age')->nullable(); // not sure which we can depend on
             $table->date('birth_date')->nullable();
+            $table->integer('gender_id')->unsigned();
             $table->foreign('gender_id')->references('id')->on('genders');
+            $table->integer('distance_id')->unsigned();
             $table->foreign('distance_id')->references('id')->on('distances');
             $table->date('race_date');
             $table->string('race_location', 255)->nullable();

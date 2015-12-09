@@ -18,7 +18,9 @@ class CreateRunnersTable extends Migration
             $table->string('last_name', 100);
             $table->string('email', 255);
             $table->date('birth_date')->nullable();
+            $table->integer('gender_id')->unsigned();
             $table->foreign('gender_id')->references('id')->on('genders');
+            $table->integer('club_id')->unsigned();
             $table->foreign('club_id')->references('id')->on('clubs'); // only one club for now
             $table->boolean('active')->default(false);
             $table->timestamps();
