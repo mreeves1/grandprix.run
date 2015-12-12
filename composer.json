@@ -6,7 +6,11 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.1.*"
+        "laravel/framework": "5.1.*",
+        "components/jquery": "^2.1",
+        "robloach/component-installer": "^0.2.3",
+        "components/bootstrap": "^3.3",
+        "components/bootstrap-default": "^3.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -47,6 +51,8 @@
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "component-dir": "public/components/",
+        "component-baseurl": "/components"
     }
 }

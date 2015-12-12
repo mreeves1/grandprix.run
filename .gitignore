@@ -1,4 +1,4 @@
-## General #####################################################################
+# General #####################################################################
 .vagrant
 
 ## Language and Framework Specific #############################################
@@ -7,6 +7,7 @@
 vendor/
 node_modules/
 www.pid
+public/components/*
 
 # Laravel 4 specific
 bootstrap/compiled.php
