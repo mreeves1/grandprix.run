@@ -16,6 +16,7 @@ use App\Club;
 use App\Gender;
 use App\Record;
 use App\Runner;
+use App\State;
 use Illuminate\Http\Request;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
@@ -60,15 +61,25 @@ Route::post('/record', function (Request $request) {
  * Delete An Existing Record
  */
 Route::delete('/record/{id}', function ($id) {
+    Record::findOrFail($id)->delete();
 
+    return redirect('/records');
 });
 
 /**
  * Display All Clubs
  */
 Route::get('/clubs', function () {
-    $clubs = Record::orderBy('created_at', 'asc')->get();
-    return view('clubs', [ 'title' => 'Clubs', 'clubs' => $clubs ]);
+    // States
+    $states_rs = State::orderBy('name', 'asc')->get();
+    $states = [];
+    $states[0] = 'Choose a state';
+    foreach ($states_rs as $s) {
+        $states[$s->abbreviation] = $s->name; // TODO: Make this a real relation?
+    }
+
+    $clubs = Club::orderBy('created_at', 'asc')->get();
+    return view('clubs', [ 'title' => 'Clubs', 'clubs' => $clubs, 'states' => $states ]);
 });
 
 /**
@@ -103,6 +114,16 @@ Route::post('/club', function (Request $request) {
     $club->contact_phone = $request->contact_phone;
     $club->save();
 
+    return redirect('/clubs');
+});
+
+/**
+ * Delete An Existing Club
+ */
+Route::delete('/club/{id}', function ($id) {
+    Club::findOrFail($id)->delete();
+
+    // Session::flash('alert-success', 'Club deleted.'); // TODO: Suss out success messages...
     return redirect('/clubs');
 });
 
@@ -165,6 +186,15 @@ Route::post('/runner', function (Request $request) {
     $runner->club_id = $request->club_id;
     $runner->active = $request->active;
     $runner->save();
+
+    return redirect('/runners');
+});
+
+/**
+ * Delete An Existing Runner
+ */
+Route::delete('/runner/{id}', function ($id) {
+    Runner::findOrFail($id)->delete();
 
     return redirect('/runners');
 });

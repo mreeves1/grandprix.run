@@ -12,20 +12,53 @@
             {{ csrf_field() }}
 
             <div class="form-group">
-                <label for="club_name" class="col-sm-3 control-label">Name</label>
-
+                {!! Form::label('name', 'Name', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    <input type="text" name="club_name" id="club_name" class="form-control">
+                    {!! Form::text('name', Request::input('name'), ['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group">
-                <label for="club_city" class="col-sm-3 control-label">City</label>
-
+                {!! Form::label('city', 'City', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    <input type="text" name="club_city" id="club_city" class="form-control">
+                    {!! Form::text('city', Request::input('city'), ['class' => 'form-control']) !!}
                 </div>
             </div>
-
+            <div class="form-group">
+                {!! Form::label('state', 'State', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::select('state', $states, Request::input('state'), ['class' => 'form-control']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('zip_code', 'Zip Code', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::text('zip_code', Request::input('zip_code'), ['class' => 'form-control']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('contact_name', 'Contact Name', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::text('contact_name', Request::input('contact_name'), ['class' => 'form-control']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('contact_email', 'Contact Email', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::text('contact_email', Request::input('contact_email'), ['class' => 'form-control']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('contact_website', 'Contact Website', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::text('contact_website', Request::input('contact_website'), ['class' => 'form-control']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('contact_phone', 'Contact Phone', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::text('contact_phone', Request::input('contact_phone'), ['class' => 'form-control']) !!}
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
                     <button type="submit" class="btn btn-default">
@@ -67,7 +100,11 @@
                                     {{ $club->state }}
                                 </td>
                                 <td>
-                                    <!-- TODO: Delete Button -->
+                                    <form action="club/{{ $club->id }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <button>Delete Club</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

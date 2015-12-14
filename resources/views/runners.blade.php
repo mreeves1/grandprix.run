@@ -99,7 +99,11 @@
                                     {{ $clubs[$runner->club_id] }}
                                 </td>
                                 <td>
-                                    <!-- TODO: Delete Button -->
+                                    <form action="runner/{{ $runner->id }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <button>Delete Runner</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
