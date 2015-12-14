@@ -1,6 +1,4 @@
-# grandprix.run
-
-## What is this?
+## What is grandprix.run?
 I envision this to someday be a website that can facilitate intra and inter running club
 competition on a level playing field via [Age-graded Tables](https://en.wikipedia.org/wiki/Masters_athletics#Age-graded_tables). For now... 
 baby steps towards that end. 
@@ -27,7 +25,8 @@ awards go 10 or 20 deep but this depends on club size and participation rates.
 1. [Or these tables from Alan Jones](http://www.runscore.com/Alan/AgeGrade.html)
 1. With a runner object with an array of race objects calculate the relative "quality" of
    their races in a visual manner.
+1. Possibly also add race prediction calculators
 
-## Other Things to Read
+## Other Resources
 1. http://www.runnersworld.com/sweat-science/a-new-approach-to-age-grading-marathon-times
 2. http://www.runnersworld.com/run-the-numbers/age-graded-tables-updated

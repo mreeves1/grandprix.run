@@ -15,11 +15,15 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call(UserTableSeeder::class);
-        $this->call(GenderTableSeeder::class);
-        $this->command->info('Genders table seeded!');
+
+        $this->call(ClubTableSeeder::class);
+        $this->command->info('Clubs table seeded!');
 
         $this->call(DistanceTableSeeder::class);
         $this->command->info('Distances table seeded!');
+
+        $this->call(GenderTableSeeder::class);
+        $this->command->info('Genders table seeded!');
 
         $this->call(StateTableSeeder::class);
         $this->command->info('States table seeded!');
@@ -28,12 +32,13 @@ class DatabaseSeeder extends Seeder
     }
 }
 
-class GenderTableSeeder extends Seeder {
+class ClubTableSeeder extends Seeder {
     public function run()
     {
-        DB::table('genders')->delete();
-        DB::table('genders')->insert(['name' =>'Female', 'abbreviation' => 'F']);
-        DB::table('genders')->insert(['name' =>'Male', 'abbreviation' => 'M']);
+        DB::table('clubs')->delete();
+        DB::table('clubs')->insert(['name' =>'Palo Alto Run Club', 'city' => 'Palo Alto', 'state' => 'CA']);
+        DB::table('clubs')->insert(['name' =>'South Coast Road Runners', 'city' => 'Irvine', 'state' => 'CA']);
+        DB::table('clubs')->insert(['name' =>'Wolfpack Running Club', 'city' => 'Los Gatos', 'state' => 'CA']);
     }
 }
 
@@ -53,6 +58,15 @@ class DistanceTableSeeder extends Seeder {
         DB::table('distances')->insert(['name' =>'25K', 'value' => '25', 'unit' => 'kilometers']);
         DB::table('distances')->insert(['name' =>'30K', 'value' => '30', 'unit' => 'kilometers']);
         DB::table('distances')->insert(['name' =>'Marathon (26.2 miles)', 'value' => '26.2', 'unit' => 'miles']);
+    }
+}
+
+class GenderTableSeeder extends Seeder {
+    public function run()
+    {
+        DB::table('genders')->delete();
+        DB::table('genders')->insert(['name' =>'Female', 'abbreviation' => 'F']);
+        DB::table('genders')->insert(['name' =>'Male', 'abbreviation' => 'M']);
     }
 }
 

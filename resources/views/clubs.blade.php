@@ -8,28 +8,28 @@
     <div class="container-fluid">
 
         <!-- New Task Form -->
-        <form action="/record" method="POST" class="form-horizontal">
+        <form action="/club" method="POST" class="form-horizontal">
             {{ csrf_field() }}
 
             <div class="form-group">
-                <label for="record_first_name" class="col-sm-3 control-label">First Name</label>
+                <label for="club_name" class="col-sm-3 control-label">Name</label>
 
                 <div class="col-sm-6">
-                    <input type="text" name="first_name" id="record_first_name" class="form-control">
+                    <input type="text" name="club_name" id="club_name" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label for="record_last_name" class="col-sm-3 control-label">Last Name</label>
+                <label for="club_city" class="col-sm-3 control-label">City</label>
 
                 <div class="col-sm-6">
-                    <input type="text" name="last_name" id="record_last_name" class="form-control">
+                    <input type="text" name="club_city" id="club_city" class="form-control">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
                     <button type="submit" class="btn btn-default">
-                        <i class="fa fa-plus"></i> Add Record
+                        <i class="fa fa-plus"></i> Add Club
                     </button>
                 </div>
             </div>
@@ -37,10 +37,10 @@
     </div>
 
     <!-- Current Tasks -->
-    @if (count($records) > 0)
+    @if (count($clubs) > 0)
         <div class="panel panel-default">
             <div class="panel-heading">
-                Age Group Records
+                Running Clubs
             </div>
 
             <div class="panel-body">
@@ -48,19 +48,24 @@
 
                     <!-- Table Headings -->
                     <thead>
-                        <th>Record Holder Name</th>
-                        <th>&nbsp;</th>
+                        <th>Name</th>
+                        <th>City</th>
+                        <th>State</th>
                     </thead>
 
                     <!-- Table Body -->
                     <tbody>
-                        @foreach ($records as $record)
+                        @foreach ($clubs as $club)
                             <tr>
-                                <!-- Task Name -->
                                 <td class="table-text">
-                                    <div>{{ $record->first_name }} {{ $record->last_name }}</div>
+                                    {{ $club->name }}
                                 </td>
-
+                                <td class="table-text">
+                                    {{ $club->city }}
+                                </td>
+                                <td class="table-text">
+                                    {{ $club->state }}
+                                </td>
                                 <td>
                                     <!-- TODO: Delete Button -->
                                 </td>
