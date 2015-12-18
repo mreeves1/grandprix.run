@@ -1,0 +1,5 @@
+needed to modify /etc/nginx/sites-enabled/homestead.app to point to correct php socket:
+fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+
+
+
