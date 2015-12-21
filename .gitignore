@@ -15,7 +15,7 @@ app/storage/
 
 # Laravel 5 & Lumen specific
 bootstrap/cache/
-storage/
+# storage/ # this is a bad solution because the subdirectories are needed! 
 .env.*.php
 .env.php
 .env
