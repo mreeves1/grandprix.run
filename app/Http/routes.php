@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
 Route::get('/', function () {
-    $readme = file_get_contents('../readme.md');
+    $readme = file_get_contents('../README.md');
     $body = Markdown::convertToHtml($readme);
     return view('index', [ 'title' => 'Grandprix.run', 'body' => $body ]); // default
 });
