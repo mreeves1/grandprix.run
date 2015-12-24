@@ -13,7 +13,7 @@ keys:
     - ~/.ssh/id_rsa
 
 folders:
-    - map: "~/repos/github_mreeves1/grandprix.run"
+    - map: "."
       to: "/home/vagrant/grandprix-run"
 
 sites:
