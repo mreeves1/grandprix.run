@@ -26,6 +26,7 @@ set :deploy_to, '/var/www/grandprix.run'
 
 # Default value for :linked_files is []
 # set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+set :linked_files, fetch(:linked_files, []).push('.env')
 
 # Default value for linked_dirs is []
 # set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
@@ -38,13 +39,27 @@ set :deploy_to, '/var/www/grandprix.run'
 
 namespace :deploy do
 
-  after :restart, :clear_cache do
+  task :composer_setup do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
+      print "Setting up composer and laravel"
+
+      execute "php /usr/local/bin/composer.phar install --working-dir #{release_path} --no-interaction"
+      execute "cd #{release_path}; php artisan clear-compiled"
+      execute "cd #{release_path}; php artisan optimize"
+      execute "cd #{release_path}; php artisan migrate"
     end
   end
+
+  task :restart do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      print "Restarting Nginx webserver and php 7 fpm manager..."
+      
+      execute :sudo, "service nginx reload"
+      execute :sudo, "service php7.0-fpm reload"
+    end
+  end
+
+  after "deploy:finished", "deploy:composer_setup"
+  after "deploy:composer_setup","deploy:restart"
 
 end
