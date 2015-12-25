@@ -19,11 +19,10 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">GrandPrix.run</a>
+                    <a class="navbar-brand" href="/">GrandPrix.run</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="{{ Request::path() == '/' ? 'active' : '' }}"><a href="/">Home</a></li>
                         <li class="{{ Request::path() == 'records' ? 'active' : '' }}"><a href="/records">Records</a></li>
                         <li class="{{ Request::path() == 'clubs' ? 'active' : '' }}"><a href="/clubs">Clubs</a></li>
                         <li class="{{ Request::path() == 'runners' ? 'active' : '' }}"><a href="/runners">Runners</a></li>
