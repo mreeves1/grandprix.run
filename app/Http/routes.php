@@ -118,6 +118,59 @@ Route::post('/club', function (Request $request) {
 });
 
 /**
+ * Edit A Club
+ */
+Route::get('/club/{id}', function ($id, Request $request) {
+    $club = Club::findOrFail($id);
+    $request->name = $club->name;
+    $request->city = $club->city;
+    $request->state = $club->state;
+    $request->zip_code = $club->zip_code;
+    $request->contact_name = $club->contact_name;
+    $request->contact_website = $club->contact_website;
+    $request->contact_email = $club->contact_email;
+    $request->contact_phone = $club->contact_phone;
+
+    return redirect('/clubs');
+});
+
+/**
+ * Update A Club
+ */
+Route::put('/club/{id}', function ($id, Request $request) {
+    $club = Club::findOrFail($id);
+
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|max:200',
+        'city' => 'required|max:50',
+        'state' => 'required|max:2|exists:states,abbreviation', // TODO: Make this a real relation
+        'zip_code' => 'max:10',
+        'contact_name' => 'max:200',
+        'contact_website' => 'max:255',
+        'contact_email' => 'max:255',
+        'contact_phone' => 'max:25',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect('/clubs')
+            ->withInput()
+            ->withErrors($validator);
+    }
+
+    $club->name = $request->name;
+    $club->city = $request->city;
+    $club->state = $request->state;
+    $club->zip_code = $request->zip_code;
+    $club->contact_name = $request->contact_name;
+    $club->contact_website = $request->contact_website;
+    $club->contact_email = $request->contact_email;
+    $club->contact_phone = $request->contact_phone;
+    $club->update();
+
+    return redirect('/clubs');
+});
+
+/**
  * Delete An Existing Club
  */
 Route::delete('/club/{id}', function ($id) {

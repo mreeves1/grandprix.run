@@ -100,10 +100,16 @@
                                     {{ $club->state }}
                                 </td>
                                 <td>
+                                    <form action="club/{{ $club->id }}" method="GET">
+                                        {{ csrf_field() }}
+                                        <button>Edit</button>
+                                    </form>
+                                </td>
+                                <td>
                                     <form action="club/{{ $club->id }}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
-                                        <button>Delete Club</button>
+                                        <button>Delete</button>
                                     </form>
                                 </td>
                             </tr>

@@ -17,6 +17,7 @@ class CreateRacesTable extends Migration
             $table->string('name', 200);
             $table->integer('distance_id')->unsigned();
             $table->foreign('distance_id')->references('id')->on('distances');
+            $table->date('date');
             $table->text('description');
             $table->string('address1', 100);
             $table->string('address2', 100);

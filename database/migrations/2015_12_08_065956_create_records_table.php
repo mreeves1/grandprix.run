@@ -22,6 +22,7 @@ class CreateRecordsTable extends Migration
             $table->foreign('gender_id')->references('id')->on('genders');
             $table->integer('distance_id')->unsigned();
             $table->foreign('distance_id')->references('id')->on('distances');
+            $table->string('race_name', 255);
             $table->date('race_date');
             $table->string('race_location', 255)->nullable();
             $table->string('race_notes', 255)->nullable();
