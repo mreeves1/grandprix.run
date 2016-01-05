@@ -43,13 +43,18 @@ make;
 # make test; # FIXME: Currently says: "ERROR: Cannot run tests without CLI sapi"
 cp modules/xdebug.so /usr/lib/php/20151012;
 
+# hhvm is running on port 9000 so we must run xdebug on 10000 instead
+# this config assumes you use this chrome extension to start debugging and phpstorm
+# https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc
 echo "; configuration for php xdebug module
 ; priority=20
 zend_extension=xdebug.so
 
+xdebug.idekey = PHPSTORM
+xdebug.profiler_enable = On
 xdebug.remote_enable = 1
 xdebug.remote_connect_back = 1
-xdebug.remote_port = 9000" > /etc/php/mods-available/xdebug.ini
+xdebug.remote_port = 10000" > /etc/php/mods-available/xdebug.ini
 
 ln -s /etc/php/mods-available/xdebug.ini /etc/php/7.0/cli/conf.d/20-xdebug.ini
 ln -s /etc/php/mods-available/xdebug.ini /etc/php/7.0/fpm/conf.d/20-xdebug.ini
