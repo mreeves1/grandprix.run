@@ -52,6 +52,7 @@ zend_extension=xdebug.so
 
 xdebug.idekey = PHPSTORM
 xdebug.profiler_enable = On
+xdebug.profiler_output_dir = '/home/vagrant/grandprix-run/storage/logs'
 xdebug.remote_enable = 1
 xdebug.remote_connect_back = 1
 xdebug.remote_port = 10000" > /etc/php/mods-available/xdebug.ini
