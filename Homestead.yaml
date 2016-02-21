@@ -21,7 +21,7 @@ sites:
       to: "/home/vagrant/grandprix-run/public"
 
 databases:
-    - homestead
+    - grandprix
 
 variables:
     - key: APP_ENV

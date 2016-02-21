@@ -4,6 +4,8 @@
  
 // const WORKOUT_TYPE_TYPES = [ 0 => 'Run', 1 => 'Race', 2 => 'Long Run', 3 => 'Workout' ];
 
+date_default_timezone_set('America/Los_Angeles');
+
 if (!isset($argv[1])) {
   exit("Please supply your Athlinks Athlete ID - find it at your logged in home page at https://www.athlinks.com/athletes/\$ATHLETE_ID \n");
 } else {
@@ -30,18 +32,21 @@ echo "Total Activities found: ".count($resp_obj->Result->raceEntries->List)."\n"
 $races = [];
 foreach ($resp_obj->Result->raceEntries->List as $k => $obj) {
   $item = [];
-  // $item['type'] = $type;
   $item['name'] = $obj->Race->RaceName." - ".$obj->Race->Courses[0]->CourseName;
-  $item['distance'] = $obj->Race->Courses[0]->DistUnit; // meters
-  $item['time'] = $obj->Ticks / 1000; // seconds - moving_time better for non-races
-  $item['start'] = $obj->Race->RaceDate;
+  $item['distance'] = $obj->Race->Courses[0]->CoursePattern;
+  $item['distance_meters'] = $obj->Race->Courses[0]->DistUnit; // meters
+  $item['time'] = $obj->TicksString;
+  $item['time_seconds'] = $obj->Ticks / 1000; // seconds - moving_time better for non-races
+  $item['date'] = $obj->Race->RaceDate;
   $item['location'] = ($obj->Race->City && $obj->Race->StateProvAbbrev) ? $obj->Race->City . ", " . $obj->Race->StateProvAbbrev : '';
+  // RaceCatDesc could identify trail runs vs. regular
   $races[] = $item;
 }
 
 echo "Your Races:\n";
 echo var_export($races, true);
 
+// TODO: Only write the file if it does not already exist?
 $file_raw = 'athlinks_raw_'.$athlete_id.'.json';
 $file_output = 'athlinks_output_'.$athlete_id.'.json';
 file_put_contents($file_raw, json_encode($resp_obj));

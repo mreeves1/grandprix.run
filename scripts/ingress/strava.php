@@ -1,8 +1,10 @@
 <?php
 // Generate a JSON file of races pulled from Strava
 // Manual way: curl -G https://www.strava.com/api/v3/athlete/activities -H "Authorization: Bearer $ACCESS_TOKEN" -d per_page=100 -d page=1 >> strava.json
- 
-const WORKOUT_TYPE_TYPES = [ 0 => 'Run', 1 => 'Race', 2 => 'Long Run', 3 => 'Workout' ];
+
+date_default_timezone_set('America/Los_Angeles');
+
+const WORKOUT_TYPES = [ 0 => 'Run', 1 => 'Race', 2 => 'Long Run', 3 => 'Workout' ];
 
 if (!isset($argv[1])) {
   exit("Please supply your Strava Access Token - find it at https://www.strava.com/settings/api\n");
@@ -46,13 +48,15 @@ echo "Total Activities found: ".count($activities)."\n";
 $runs = [];
 foreach ($activities as $k => $obj) {
   $item = [];
-  $type = isset($obj->workout_type) ? WORKOUT_TYPE_TYPES[$obj->workout_type] : 'Unknown';
+  $type = isset($obj->workout_type) ? WORKOUT_TYPES[$obj->workout_type] : 'Unknown';
   if ($obj->type == 'Run') {
     // $item['type'] = $type;
     $item['name'] = $obj->name;
-    $item['distance'] = $obj->distance; // meters
-    $item['time'] = $obj->elapsed_time; // seconds - moving_time better for non-races
-    $item['start'] = $obj->start_date_local;
+    $item['distance'] = ""; // TODO: Guestimate based on distance_meters
+    $item['distance_meters'] = $obj->distance; // meters
+    $item['time'] =
+    $item['time_seconds'] = $obj->elapsed_time; // seconds - moving_time better for non-races
+    $item['date'] = date("Y-m-d", strtotime($obj->start_date_local));
     $item['location'] = ($obj->location_city && $obj->location_state) ? $obj->location_city . ", " . $obj->location_state : '';
     $runs[$type][] = $item;
   }
@@ -61,6 +65,7 @@ foreach ($activities as $k => $obj) {
 echo "Your Races:\n";
 echo var_export($runs['Race'], true);
 
+// TODO: Only write the file if it does not already exist?
 $file_raw = 'strava_raw_'.$athlete_id.'.json';
 $file_output = 'strava_output_'.$athlete_id.'.json';
 file_put_contents($file_raw, json_encode($activities));
