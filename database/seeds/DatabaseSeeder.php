@@ -25,8 +25,14 @@ class DatabaseSeeder extends Seeder
         $this->call(GenderTableSeeder::class);
         $this->command->info('Genders table seeded!');
 
+        $this->call(RoleTableSeeder::class);
+        $this->command->info('Roles table seeded!');
+
         $this->call(StateTableSeeder::class);
         $this->command->info('States table seeded!');
+
+        $this->call(UsersTableSeeder::class);
+        $this->command->info('Users table seeded!');
 
         Model::reguard();
     }
@@ -67,6 +73,17 @@ class GenderTableSeeder extends Seeder {
         DB::table('genders')->delete();
         DB::table('genders')->insert(['name' =>'Female', 'abbreviation' => 'F']);
         DB::table('genders')->insert(['name' =>'Male', 'abbreviation' => 'M']);
+    }
+}
+
+class RoleTableSeeder extends Seeder {
+    public function run()
+    {
+        DB::table('roles')->delete();
+        DB::table('roles')->insert(['name' =>'superadmin', 'description' => 'The whole enchilada.']);
+        DB::table('roles')->insert(['name' =>'admin', 'description' => 'Everything but...?']);
+        DB::table('roles')->insert(['name' =>'clubadmin', 'description' => 'Create club races, add runners to their club, etc.']);
+        DB::table('roles')->insert(['name' =>'runner', 'description' => 'Normal user.']);
     }
 }
 
@@ -128,4 +145,35 @@ class StateTableSeeder extends Seeder {
     }
 }
 
-
+class UserTableSeeder extends Seeder {
+    public function run()
+    {
+        $role_superadmin = DB::table('roles')->where('name', 'superadmin')->first()->id;
+        $role_runner = DB::table('roles')->where('name', 'runner')->first()->id;
+        $gender_male = DB::table('genders')->where('abbreviation', 'M')->first()->id;
+        $gender_female = DB::table('genders')->where('abbreviation', 'F')->first()->id;
+        DB::table('users')->delete();
+        DB::table('users')->insert([
+            'first_name' =>'Michael',
+            'last_name' => 'Reeves',
+            'email' => 'mike.reeves@gmail.com',
+            'password' => '',
+            'birth_date' => '1975-01-01',
+            'role_id' => $role_superadmin,
+            'gender_id' => $gender_male,
+            'club_id' => 1,
+            'active' => true
+        ]);
+        DB::table('users')->insert([
+            'first_name' =>'Lucy',
+            'last_name' => 'Sample',
+            'email' => 'mike.reeves+lucy@gmail.com',
+            'password' => '',
+            'birth_date' => '1975-01-01',
+            'role_id' => $role_runner,
+            'gender_id' => $gender_female,
+            'club_id' => 1,
+            'active' => true
+        ]);
+    }
+}

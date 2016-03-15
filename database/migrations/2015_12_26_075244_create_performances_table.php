@@ -14,8 +14,8 @@ class CreatePerformancesTable extends Migration
     {
         Schema::create('performances', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('runner_id')->unsigned();
-            $table->foreign('runner_id')->references('id')->on('runners');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('race_id')->unsigned();
             $table->foreign('race_id')->references('id')->on('races');
             $table->time('time');
