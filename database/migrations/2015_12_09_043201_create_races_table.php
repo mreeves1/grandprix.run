@@ -15,8 +15,10 @@ class CreateRacesTable extends Migration
         Schema::create('races', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 200);
-            $table->integer('distance_id')->unsigned();
+            $table->integer('distance_id')->unsigned()->nullable();
             $table->foreign('distance_id')->references('id')->on('distances');
+            $table->string('distance_alt_name', 200);
+            $table->float('distance_alt_value'); // meters
             $table->date('date');
             $table->text('description');
             $table->string('address1', 100);
@@ -24,7 +26,8 @@ class CreateRacesTable extends Migration
             $table->string('city', 100);
             $table->string('state', 2); // US only for now
             $table->string('zip_code', 10);
-            $table->string('website', 255);
+            $table->string('website_info', 255);
+            $table->string('website_registration', 255);
             $table->string('contact_name', 200); // punting on contacts table
             $table->string('contact_email', 255);
             $table->string('contact_phone', 25);

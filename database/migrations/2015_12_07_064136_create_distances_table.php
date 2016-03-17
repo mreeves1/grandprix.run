@@ -14,9 +14,9 @@ class CreateDistancesTable extends Migration
     {
         Schema::create('distances', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name'); // May be redundant but we may wish to distinguish between track/road/trail
-            $table->float('value');
-            $table->enum('unit', ['feet', 'miles', 'meters', 'kilometers']);
+            $table->string('name');
+            $table->float('value'); // meters
+            // $table->enum('unit', ['feet', 'miles', 'meters', 'kilometers']);
             $table->integer('sort_order')->default(10000);
             $table->timestamps();
         });
