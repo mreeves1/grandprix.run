@@ -15,8 +15,10 @@
 use App\Club;
 use App\Gender;
 use App\Record;
-use App\Runner;
+use App\Role;
 use App\State;
+use App\User;
+
 use Illuminate\Http\Request;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
@@ -181,9 +183,17 @@ Route::delete('/club/{id}', function ($id) {
 });
 
 /**
- * Display All Runners
+ * Display All Users
  */
-Route::get('/runners', function () {
+Route::get('/users', function () {
+    // Roles
+    $roles_rs = Role::orderBy('name', 'asc')->get();
+    $roles = [];
+    $roles[0] = 'Choose a roles';
+    foreach ($roles_rs as $r) {
+      $roles[$r->id] = $r->name;
+    }
+
     // Genders
     $genders_rs = Gender::orderBy('name', 'asc')->get();
     $genders = [];
@@ -200,20 +210,21 @@ Route::get('/runners', function () {
         $clubs[$c->id] = $c->name;
     }
 
-    $runners = Runner::orderBy('created_at', 'asc')->get();
-    return view('runners',
+    $users = User::orderBy('created_at', 'asc')->get();
+    return view('users',
                 [
-                    'title' => 'Runners',
+                    'title' => 'Users',
                     'clubs' => $clubs,
                     'genders' => $genders,
-                    'runners' => $runners,
+                    'roles' => $roles,
+                    'users' => $users,
                 ]);
 });
 
 /**
- * Add A New Runner
+ * Add A New User
  */
-Route::post('/runner', function (Request $request) {
+Route::post('/user', function (Request $request) {
     $validator = Validator::make($request->all(), [
         'first_name' => 'required|max:100',
         'last_name' => 'required|max:100',
@@ -225,29 +236,29 @@ Route::post('/runner', function (Request $request) {
     ]);
 
     if ($validator->fails()) {
-        return redirect('/runners')
+        return redirect('/users')
             ->withInput()
             ->withErrors($validator);
     }
 
-    $runner = new Runner;
-    $runner->first_name = $request->first_name;
-    $runner->last_name = $request->last_name;
-    $runner->email = $request->email;
-    $runner->birth_date = $request->birth_date;
-    $runner->gender_id = $request->gender_id;
-    $runner->club_id = $request->club_id;
-    $runner->active = $request->active;
-    $runner->save();
+    $user = new User;
+    $user->first_name = $request->first_name;
+    $user->last_name = $request->last_name;
+    $user->email = $request->email;
+    $user->birth_date = $request->birth_date;
+    $user->gender_id = $request->gender_id;
+    $user->club_id = $request->club_id;
+    $user->active = $request->active;
+    $user->save();
 
-    return redirect('/runners');
+    return redirect('/users');
 });
 
 /**
- * Delete An Existing Runner
+ * Delete An Existing User
  */
-Route::delete('/runner/{id}', function ($id) {
-    Runner::findOrFail($id)->delete();
+Route::delete('/user/{id}', function ($id) {
+    User::findOrFail($id)->delete();
 
-    return redirect('/runners');
+    return redirect('/users');
 });

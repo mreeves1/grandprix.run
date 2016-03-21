@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Club extends Model
 {
-  public function runners()
+  public function users()
   {
-    return $this->hasMany(Runner::class);
+    return $this->hasMany(Users::class);
   }
 }

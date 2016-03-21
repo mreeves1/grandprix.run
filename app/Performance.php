@@ -7,14 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Performance extends Model
 {
 
-  public function runner()
+  public function users()
   {
-    return $this->belongsTo(Runner::class);
+    return $this->belongsTo(User::class);
   }
 
   public function race()
   {
     return $this->belongsTo(Race::class);
+  }
+
+  public function distance()
+  {
+    return $this->belongsTo(Distance::class);
   }
 
 }

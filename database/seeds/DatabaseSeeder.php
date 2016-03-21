@@ -87,10 +87,10 @@ class RoleTableSeeder extends Seeder {
     public function run()
     {
         DB::table('roles')->delete();
-        DB::table('roles')->insert(['name' =>'superadmin', 'description' => 'The whole enchilada.']);
-        DB::table('roles')->insert(['name' =>'admin', 'description' => 'Everything but...?']);
-        DB::table('roles')->insert(['name' =>'clubadmin', 'description' => 'Create club races, add runners to their club, etc.']);
-        DB::table('roles')->insert(['name' =>'runner', 'description' => 'Normal user.']);
+        DB::table('roles')->insert(['id'=> '1', 'name' =>'superadmin', 'description' => 'The whole enchilada.']);
+        DB::table('roles')->insert(['id'=> '2', 'name' =>'admin', 'description' => 'Everything but...?']);
+        DB::table('roles')->insert(['id'=> '3', 'name' =>'clubadmin', 'description' => 'Create club races, add runners to their club, etc.']);
+        DB::table('roles')->insert(['id'=> '4', 'name' =>'runner', 'description' => 'Normal user.']);
     }
 }
 

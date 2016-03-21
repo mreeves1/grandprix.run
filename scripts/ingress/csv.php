@@ -27,7 +27,7 @@ if (!isset($argv[1])) {
 if (file_exists($csv_file)) {
   $rows = file($csv_file);
 } else {
-  throw new InvalidArgumentException("File not found or faile failed to open: ".$csv_file);
+  throw new InvalidArgumentException("File not found or failed failed to open: $csv_file");
 }
 
 $races_arr = array();
@@ -54,7 +54,17 @@ foreach ($rows as $n => $row) {
     $races_arr[] = $line;
   }
 }
-var_dump($races_arr);
+
+// var_dump($races_arr); // debug
+
+$json_file = explode(".", $csv_file)[0].'.json';
+if (!file_exists($json_file)) {
+  $json_fh = fopen($json_file, 'w');
+  fwrite($json_fh, json_encode($races_arr));
+  echo count($races_arr)." lines written to $json_file\n";
+} else {
+  throw new InvalidArgumentException("JSON output file already exists: $json_file.");
+}
 
 function cleanupDate($input) {
   return date('Y-m-d', strtotime($input));

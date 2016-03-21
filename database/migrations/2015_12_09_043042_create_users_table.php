@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 60);
             $table->rememberToken();
             $table->date('birth_date')->nullable();
-            $table->integer('role_id')->unsigned();
+            $table->integer('role_id')->unsigned()->default(4); // runner role
             $table->foreign('role_id')->references('id')->on('roles');
             $table->integer('gender_id')->unsigned();
             $table->foreign('gender_id')->references('id')->on('genders');

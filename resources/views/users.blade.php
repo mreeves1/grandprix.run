@@ -8,9 +8,15 @@
     <div class="container-fluid">
 
         <!-- New Task Form -->
-        <form action="/runner" method="POST" class="form-horizontal">
+        <form action="/user" method="POST" class="form-horizontal">
             {{ csrf_field() }}
 
+            <div class="form-group">
+                {!! Form::label('role_id', 'Role', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::select('role_id', $roles, Request::input('role_id'), ['class' => 'form-control']) !!}
+                </div>
+            </div>
             <div class="form-group">
                 {!! Form::label('first_name', 'First Name', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
@@ -64,10 +70,10 @@
     </div>
 
     <!-- Current Tasks -->
-    @if (count($runners) > 0)
+    @if (count($users) > 0)
         <div class="panel panel-default">
             <div class="panel-heading">
-                Runners
+                Users
             </div>
 
             <div class="panel-body">
@@ -84,25 +90,25 @@
 
                     <!-- Table Body -->
                     <tbody>
-                        @foreach ($runners as $runner)
+                        @foreach ($users as $user)
                             <tr>
                                 <td class="table-text">
-                                    {{ $runner->first_name }} {{ $runner->last_name }}
+                                    {{ $user->first_name }} {{ $user->last_name }}
                                 </td>
                                 <td class="table-text">
-                                    {{ $genders[$runner->gender_id] }}
+                                    {{ $genders[$user->gender_id] }}
                                 </td>
                                 <td class="table-text">
                                     TODO
                                 </td>
                                 <td class="table-text">
-                                    {{ $clubs[$runner->club_id] }}
+                                    {{ $clubs[$user->club_id] }}
                                 </td>
                                 <td>
-                                    <form action="runner/{{ $runner->id }}" method="POST">
+                                    <form action="user/{{ $user->id }}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
-                                        <button>Delete Runner</button>
+                                        <button>Delete User</button>
                                     </form>
                                 </td>
                             </tr>

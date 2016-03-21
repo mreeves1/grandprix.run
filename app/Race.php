@@ -17,9 +17,9 @@ class Race extends Model
     return $this->hasMany(Performance::class);
   }
 
-  public function runners()
+  public function users()
   {
-    return $this->hasMany(Runner::class);
+    return $this->hasMany(User::class);
   }
 
 }
