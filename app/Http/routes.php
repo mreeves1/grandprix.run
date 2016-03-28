@@ -68,77 +68,14 @@ Route::delete('/record/{id}', function ($id) {
     return redirect('/records');
 });
 
-/**
- * Display All Clubs
- */
-Route::get('/clubs', function () {
-    // States
-    $states_rs = State::orderBy('name', 'asc')->get();
-    $states = [];
-    $states[0] = 'Choose a state';
-    foreach ($states_rs as $s) {
-        $states[$s->abbreviation] = $s->name; // TODO: Make this a real relation?
-    }
-
-    $clubs = Club::orderBy('created_at', 'asc')->get();
-    return view('clubs', [ 'title' => 'Clubs', 'clubs' => $clubs, 'states' => $states ]);
-});
-
-/**
- * Add A New Club
- */
-Route::post('/club', function (Request $request) {
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:200',
-        'city' => 'required|max:50',
-        'state' => 'required|max:2|exists:states,abbreviation', // TODO: Make this a real relation
-        'zip_code' => 'max:10',
-        'contact_name' => 'max:200',
-        'contact_website' => 'max:255',
-        'contact_email' => 'max:255',
-        'contact_phone' => 'max:25',
-    ]);
-
-    if ($validator->fails()) {
-        return redirect('/clubs')
-            ->withInput()
-            ->withErrors($validator);
-    }
-
-    $club = new Club;
-    $club->name = $request->name;
-    $club->city = $request->city;
-    $club->state = $request->state;
-    $club->zip_code = $request->zip_code;
-    $club->contact_name = $request->contact_name;
-    $club->contact_website = $request->contact_website;
-    $club->contact_email = $request->contact_email;
-    $club->contact_phone = $request->contact_phone;
-    $club->save();
-
-    return redirect('/clubs');
-});
-
-/**
- * Edit A Club
- */
-Route::get('/club/{id}', function ($id, Request $request) {
-    $club = Club::findOrFail($id);
-    $request->name = $club->name;
-    $request->city = $club->city;
-    $request->state = $club->state;
-    $request->zip_code = $club->zip_code;
-    $request->contact_name = $club->contact_name;
-    $request->contact_website = $club->contact_website;
-    $request->contact_email = $club->contact_email;
-    $request->contact_phone = $club->contact_phone;
-
-    return redirect('/clubs');
-});
+Route::get('clubs', 'ClubController@index');
+Route::resource('club', 'ClubController');
 
 /**
  * Update A Club
  */
+/*
+// TODO: Refactor this to contoller method
 Route::put('/club/{id}', function ($id, Request $request) {
     $club = Club::findOrFail($id);
 
@@ -171,16 +108,7 @@ Route::put('/club/{id}', function ($id, Request $request) {
 
     return redirect('/clubs');
 });
-
-/**
- * Delete An Existing Club
- */
-Route::delete('/club/{id}', function ($id) {
-    Club::findOrFail($id)->delete();
-
-    // Session::flash('alert-success', 'Club deleted.'); // TODO: Suss out success messages...
-    return redirect('/clubs');
-});
+*/
 
 /**
  * Display All Users
