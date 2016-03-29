@@ -58,7 +58,7 @@ class DistanceTableSeeder extends Seeder {
         DB::table('distances')->insert(['name' =>'2 miles', 'value' => '3218.688', 'sort_order' => '60']);
         DB::table('distances')->insert(['name' =>'5K', 'value' => '5000', 'sort_order' => '70']);
         DB::table('distances')->insert(['name' =>'8K', 'value' => '8000', 'sort_order' => '80']);
-        DB::table('distances')->insert(['name' =>'5 miles', 'value' => '8,046.720', 'sort_order' => '90']);
+        DB::table('distances')->insert(['name' =>'5 miles', 'value' => '8046.720', 'sort_order' => '90']);
         DB::table('distances')->insert(['name' =>'10K', 'value' => '10000', 'sort_order' => '100']);
         DB::table('distances')->insert(['name' =>'12K', 'value' => '12000', 'sort_order' => '110']);
         DB::table('distances')->insert(['name' =>'15K', 'value' => '15000', 'sort_order' => '120']);
