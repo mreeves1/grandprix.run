@@ -72,45 +72,6 @@ Route::get('clubs', 'ClubController@index');
 Route::resource('club', 'ClubController');
 
 /**
- * Update A Club
- */
-/*
-// TODO: Refactor this to contoller method
-Route::put('/club/{id}', function ($id, Request $request) {
-    $club = Club::findOrFail($id);
-
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:200',
-        'city' => 'required|max:50',
-        'state' => 'required|max:2|exists:states,abbreviation', // TODO: Make this a real relation
-        'zip_code' => 'max:10',
-        'contact_name' => 'max:200',
-        'contact_website' => 'max:255',
-        'contact_email' => 'max:255',
-        'contact_phone' => 'max:25',
-    ]);
-
-    if ($validator->fails()) {
-        return redirect('/clubs')
-            ->withInput()
-            ->withErrors($validator);
-    }
-
-    $club->name = $request->name;
-    $club->city = $request->city;
-    $club->state = $request->state;
-    $club->zip_code = $request->zip_code;
-    $club->contact_name = $request->contact_name;
-    $club->contact_website = $request->contact_website;
-    $club->contact_email = $request->contact_email;
-    $club->contact_phone = $request->contact_phone;
-    $club->update();
-
-    return redirect('/clubs');
-});
-*/
-
-/**
  * Display All Users
  */
 Route::get('/users', function () {
