@@ -14,7 +14,10 @@
                 <div style="float:right;">
                     <form action="club/create" method="GET">
                         {{ csrf_field() }}
-                        <button class="btn btn-success">Add New Club</button>
+                        <button class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            Add New Club
+                        </button>
                     </form>
                 </div>
             </div>
@@ -42,20 +45,29 @@
                                 <td width="50">
                                     <form action="club/{{ $club->id }}" method="GET">
                                         {{ csrf_field() }}
-                                        <button class="btn btn-xs btn-info">View</button>
+                                        <button class="btn btn-xs btn-info">
+                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                            View
+                                        </button>
                                     </form>
                                 </td>
                                 <td width="50">
                                     <form action="club/{{ $club->id }}/edit" method="GET">
                                         {{ csrf_field() }}
-                                        <button class="btn btn-xs btn-primary">Edit</button>
+                                        <button class="btn btn-xs btn-primary">
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            Edit
+                                        </button>
                                     </form>
                                 </td>
                                 <td width="50">
                                     <form action="club/{{ $club->id }}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
-                                        <button class="btn btn-xs btn-danger">Delete</button>
+                                        <button class="btn btn-xs btn-danger">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            Delete
+                                        </button>
                                     </form>
                                 </td>
                             </tr>

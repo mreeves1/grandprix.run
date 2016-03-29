@@ -15,13 +15,12 @@ class ClubController extends Controller
 {
     private function getStates()
     {
-        // States
         $states_rs = State::orderBy('name', 'asc')->get();
-        $states = [];
-        $states[0] = 'Choose a state';
+        $states = [0 => 'Choose a state'];
         foreach ($states_rs as $s) {
-            $states[$s->abbreviation] = $s->name; // TODO: Make this a real relation?
+            $states[$s->abbreviation] = $s->name;
         }
+
         return $states;
     }
 
@@ -30,11 +29,11 @@ class ClubController extends Controller
         $validator = \Validator::make($request->all(), [
             'name' => 'required|max:200',
             'city' => 'required|max:50',
-            'state' => 'required|max:2|exists:states,abbreviation', // TODO: Make this a real relation
+            'state' => 'required|max:2|exists:states,abbreviation',
             'zip_code' => 'max:10',
             'contact_name' => 'max:200',
-            'contact_website' => 'max:255',
-            'contact_email' => 'max:255',
+            'contact_website' => 'sometimes|url|max:255',
+            'contact_email' => 'sometimes|email|max:255',
             'contact_phone' => 'max:25',
         ]);
 
@@ -42,31 +41,32 @@ class ClubController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the clubs.
+     * TODO: Add filters?
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-
         $clubs = Club::orderBy('created_at', 'asc')->get();
-        return view('club.index', [ 'title' => 'Clubs', 'clubs' => $clubs, 'states' => $this->getStates()]);
+
+        return view('club.index', [ 'title' => 'View Clubs', 'clubs' => $clubs, 'states' => $this->getStates()]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new club.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        // $club = new Club;
         $action = \URL::route('club.store');
+
         return view('club.create_edit', ['title' => 'Add New Club', 'states' => $this->getStates()]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created club in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -92,11 +92,12 @@ class ClubController extends Controller
         $club->save();
 
         \Session::flash('alert-success', 'New club added.');
+
         return redirect('/clubs');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified club.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -104,11 +105,12 @@ class ClubController extends Controller
     public function show($id)
     {
         $club = Club::findOrFail($id);
+
         return view('club.show', ['club' => $club, 'title' => 'View Club Details']);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified club.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -117,24 +119,12 @@ class ClubController extends Controller
     {
         $club = Club::findOrFail($id);
         $action = \URL::route('club.update', ['id' => $id]);
-/*
-        $request = new Request;
-        $club = new Club;
-        $request->name = $club->name;
-        $request->city = $club->city;
-        $request->state = $club->state;
-        $request->zip_code = $club->zip_code;
-        $request->contact_name = $club->contact_name;
-        $request->contact_website = $club->contact_website;
-        $request->contact_email = $club->contact_email;
-        $request->contact_phone = $club->contact_phone;
-*/
-        // return view('club.show', ['club' => $club, 'title' => 'View Club Details']);
-        return view('club.create_edit', ['club' => $club, 'action' => $action, 'title' => 'Edit Club', 'states' => $this->getStates()]);
+
+        return view('club.create_edit', ['club' => $club, 'title' => 'Edit Club', 'states' => $this->getStates()]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified club in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -142,11 +132,32 @@ class ClubController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $club = Club::findOrFail($id);
+
+        $validator = $this->getValidator($request);
+        if ($validator->fails()) {
+            return redirect("/club/$id/edit/")
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $club->name = $request->name;
+        $club->city = $request->city;
+        $club->state = $request->state;
+        $club->zip_code = $request->zip_code;
+        $club->contact_name = $request->contact_name;
+        $club->contact_website = $request->contact_website;
+        $club->contact_email = $request->contact_email;
+        $club->contact_phone = $request->contact_phone;
+        $club->update();
+
+        \Session::flash('alert-success', 'Club updated.');
+
+        return redirect('/clubs');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified club from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -154,7 +165,9 @@ class ClubController extends Controller
     public function destroy($id)
     {
         Club::findOrFail($id)->delete();
+
         \Session::flash('alert-success', 'Club deleted.');
+
         return redirect('/clubs');
     }
 }
