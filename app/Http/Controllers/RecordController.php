@@ -136,7 +136,13 @@ class RecordController extends Controller
     {
         $record = Record::findOrFail($id);
 
-        return view('record.show', ['record' => $record, 'title' => 'View Record Details']);
+        return view('record.show', [
+            'title' => 'View Record Details',
+            'record' => $record,
+            'distances' => $this->getDistances(),
+            'genders' => $this->getGenders(),
+            'status' => $this->getStatus()
+        ]);
     }
 
     /**
