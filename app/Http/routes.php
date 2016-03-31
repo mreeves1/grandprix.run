@@ -22,6 +22,9 @@ use App\User;
 use Illuminate\Http\Request;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
+/**
+ * Homepage
+ */
 Route::get('/', function () {
     $readme = file_get_contents('../README.md');
     $body = Markdown::convertToHtml($readme);
@@ -29,47 +32,16 @@ Route::get('/', function () {
 });
 
 /**
- * Display All Records
+ * Clubs
  */
-Route::get('/records', function () {
-    $records = Record::orderBy('created_at', 'asc')->get();
-    return view('records', [ 'title' => 'Records', 'records' => $records ]);
-});
-
-/**
- * Add A New Record
- */
-Route::post('/record', function (Request $request) {
-    $validator = Validator::make($request->all(), [
-        'first_name' => 'required|max:100',
-        'last_name' => 'required|max:100',
-    ]);
-
-    if ($validator->fails()) {
-        return redirect('/records')
-            ->withInput()
-            ->withErrors($validator);
-    }
-
-    $record = new Record;
-    $record->first_name = $request->first_name;
-    $record->last_name = $request->last_name;
-    $record->save();
-
-    return redirect('/records');
-});
-
-/**
- * Delete An Existing Record
- */
-Route::delete('/record/{id}', function ($id) {
-    Record::findOrFail($id)->delete();
-
-    return redirect('/records');
-});
-
 Route::get('clubs', 'ClubController@index');
 Route::resource('club', 'ClubController');
+
+/**
+ * Records
+ */
+Route::get('records', 'RecordController@index');
+Route::resource('record', 'RecordController');
 
 /**
  * Display All Users
@@ -109,6 +81,7 @@ Route::get('/users', function () {
                     'users' => $users,
                 ]);
 });
+
 
 /**
  * Add A New User

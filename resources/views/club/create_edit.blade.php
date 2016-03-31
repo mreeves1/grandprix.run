@@ -12,7 +12,7 @@
             {!! Form::model($club, ['route' => ['club.update', $club->id], 'method' => 'patch', 'class' => 'form-horizontal']) !!}
         @else
             {!! Form::open(['route' => 'club.store', 'class' => 'form-horizontal']) !!}
-        @endif    
+        @endif
 
             <div class="form-group">
                 {!! Form::label('name', 'Name', ['class' => 'col-sm-3 control-label']) !!}
@@ -65,9 +65,9 @@
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
                     <button type="submit" class="btn btn-success">
-                        <i class="fa fa-plus"></i> @if (isset($club)) Edit @else Add @endif Club    
+                        <i class="fa fa-plus"></i> @if (isset($club)) Edit @else Add @endif Club
                     </button>
-                    <a role="button" class="btn btn-default" href="{{ URL::route('club.index') }}">Cancel</a>  
+                    <a role="button" class="btn btn-link" href="{{ URL::route('club.index') }}">Cancel</a>
                 </div>
             </div>
         {!! Form::close() !!}

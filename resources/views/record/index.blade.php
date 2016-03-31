@@ -9,41 +9,49 @@
 
     <div class="panel panel-default">
         <div class="panel-heading" style="">
-            <h4 style="display:inline-block">Running Clubs</h4>
+            <h4 style="display:inline-block">Running Records</h4>
             <div style="float:right;">
-                <form action="club/create" method="GET">
+                <form action="record/create" method="GET">
                     {{ csrf_field() }}
                     <button class="btn btn-success">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        Add New Club
+                        Add New Record
                     </button>
                 </form>
             </div>
         </div>
 
         <div class="panel-body">
-            @if (count($clubs) > 0)
+            @if (count($records) > 0)
                 <table class="table table-striped task-table">
 
                     <!-- Table Headings -->
                     <thead>
-                        <th>Name</th>
-                        <th>Location</th>
+                        <th>Athlete Name</th>
+                        <th>Race Name</th>
+                        <th>Race Date</th>
+                        <th>Race Location</th>
                         <th colspan="3">Actions</th>
                     </thead>
 
                     <!-- Table Body -->
                     <tbody>
-                        @foreach ($clubs as $club)
+                        @foreach ($records as $record)
                             <tr>
                                 <td class="table-text">
-                                    {{ $club->name }}
+                                    {{ $record->first_name }} {{ $record->last_name }}
                                 </td>
                                 <td class="table-text">
-                                    {{ $club->city }}, {{ $club->state }}
+                                    {{ $record->race_name }}
+                                </td>
+                                <td class="table-text">
+                                    {{ $record->race_date }}
+                                </td>
+                                <td class="table-text">
+                                    {{ $record->race_location }}
                                 </td>
                                 <td width="50">
-                                    <form action="club/{{ $club->id }}" method="GET">
+                                    <form action="record/{{ $record->id }}" method="GET">
                                         {{ csrf_field() }}
                                         <button class="btn btn-xs btn-info">
                                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -52,7 +60,7 @@
                                     </form>
                                 </td>
                                 <td width="50">
-                                    <form action="club/{{ $club->id }}/edit" method="GET">
+                                    <form action="record/{{ $record->id }}/edit" method="GET">
                                         {{ csrf_field() }}
                                         <button class="btn btn-xs btn-primary">
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -61,7 +69,7 @@
                                     </form>
                                 </td>
                                 <td width="50">
-                                    <form action="club/{{ $club->id }}" method="POST">
+                                    <form action="record/{{ $record->id }}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <button class="btn btn-xs btn-danger">
