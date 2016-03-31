@@ -30,7 +30,7 @@
                         <th>Athlete Name</th>
                         <th>Race Name</th>
                         <th>Race Date</th>
-                        <th>Race Location</th>
+                        <!-- <th>Race Location</th> -->
                         <th colspan="3">Actions</th>
                     </thead>
 
@@ -38,18 +38,20 @@
                     <tbody>
                         @foreach ($records as $record)
                             <tr>
-                                <td class="table-text">
+                                <td class="table-text text-nowrap">
                                     {{ $record->first_name }} {{ $record->last_name }}
                                 </td>
                                 <td class="table-text">
                                     {{ $record->race_name }}
                                 </td>
-                                <td class="table-text">
+                                <td class="table-text text-nowrap">
                                     {{ $record->race_date }}
                                 </td>
+                                <!--
                                 <td class="table-text">
                                     {{ $record->race_location }}
                                 </td>
+                                -->
                                 <td width="50">
                                     <form action="record/{{ $record->id }}" method="GET">
                                         {{ csrf_field() }}

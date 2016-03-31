@@ -9,7 +9,7 @@
         <strong>Id:</strong> {{ $record->id }}<br/>
         <strong>First Name:</strong> {{ $record->first_name }}<br/>
         <strong>Last Name:</strong> {{ $record->last_name }}<br/>
-        <strong>Gender:</strong> {{ $record->gender_id }} TODO:<br/>
+        <strong>Gender:</strong> {!! $genders[$record->gender_id] !!}<br/>
         <strong>Age:</strong> {{ $record->age }}<br/>
         <strong>Birth Date:</strong> {{ $record->birth_date }}<br/>
         <hr/>
@@ -18,7 +18,7 @@
         <strong>Race Date:</strong> {{ $record->race_date }}<br/>
         <strong>Race Location:</strong> {{ $record->race_location }}<br/>
         <strong>Race Notes:</strong> {{ $record->race_notes }}<br/>
-        <strong>Distance:</strong> {{ $record->distance_id }} TODO:<br/>
-        <strong>Active:</strong> {{ $record->active }}<br/>
+        <strong>Distance:</strong> {!! $distances[$record->distance_id] !!}<br/>
+        <strong>Active:</strong> {!! $status[$record->active] !!}<br/>
     </div>
 @endsection
