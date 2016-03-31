@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
         $this->call(GenderTableSeeder::class);
         $this->command->info('Genders table seeded!');
 
+        $this->call(RecordTableSeeder::class);
+        $this->command->info('Records table seeded!');
+
         $this->call(RoleTableSeeder::class);
         $this->command->info('Roles table seeded!');
 
@@ -80,6 +83,27 @@ class GenderTableSeeder extends Seeder {
         DB::table('genders')->delete();
         DB::table('genders')->insert(['name' =>'Female', 'abbreviation' => 'F']);
         DB::table('genders')->insert(['name' =>'Male', 'abbreviation' => 'M']);
+    }
+}
+
+class RecordTableSeeder extends Seeder {
+    public function run()
+    {
+        DB::table('records')->delete();
+        DB::table('records')->insert([
+            'id'=> '1',
+            'first_name' =>'Roger',
+            'last_name' =>'Bannister',
+            'age' => '25',
+            'birth_date' => '1929-03-23',
+            'gender_id' => '2',
+            'distance_id' => '4',
+            'race_name' => 'Track Meet between British AAA and Oxford University',
+            'race_date' => '1954-05-06',
+            'race_location' => 'Iffley Road Track, Oxford, UK',
+            'race_notes' => 'First time the 4 minute mile was broken!',
+            'active' => '1'
+        ]);
     }
 }
 
