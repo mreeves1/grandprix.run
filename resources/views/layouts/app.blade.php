@@ -25,7 +25,7 @@
                     <ul class="nav navbar-nav">
                         <li class="{{ Request::path() == 'records' ? 'active' : '' }}"><a href="/records">Records</a></li>
                         <li class="{{ Request::path() == 'clubs' ? 'active' : '' }}"><a href="/clubs">Clubs</a></li>
-                        <li class="{{ Request::path() == 'runners' ? 'active' : '' }}"><a href="/runners">Runners</a></li>
+                        <li class="{{ Request::path() == 'users' ? 'active' : '' }}"><a href="/users">Users</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
