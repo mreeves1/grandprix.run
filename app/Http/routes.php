@@ -44,8 +44,12 @@ Route::get('records', 'RecordController@index');
 Route::resource('record', 'RecordController');
 
 /**
- * Display All Users
+ * Users
  */
+Route::get('users', 'UserController@index');
+Route::resource('user', 'UserController');
+
+/*
 Route::get('/users', function () {
     // Roles
     $roles_rs = Role::orderBy('name', 'asc')->get();
@@ -82,10 +86,6 @@ Route::get('/users', function () {
                 ]);
 });
 
-
-/**
- * Add A New User
- */
 Route::post('/user', function (Request $request) {
     $validator = Validator::make($request->all(), [
         'first_name' => 'required|max:100',
@@ -116,11 +116,10 @@ Route::post('/user', function (Request $request) {
     return redirect('/users');
 });
 
-/**
- * Delete An Existing User
- */
 Route::delete('/user/{id}', function ($id) {
     User::findOrFail($id)->delete();
 
     return redirect('/users');
 });
+
+*/
