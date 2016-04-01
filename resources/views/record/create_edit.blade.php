@@ -47,7 +47,7 @@
             <div class="form-group">
                 {!! Form::label('birth_date', 'Birth Date', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('birth_date', old('contact_name'), ['class' => 'form-control']) !!}
+                    {!! Form::date('birth_date', old('contact_name'), ['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group">
@@ -59,7 +59,7 @@
             <div class="form-group">
                 {!! Form::label('race_date', 'Race Date', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('race_date', old('race_date'), ['class' => 'form-control']) !!}
+                    {!! Form::date('race_date', old('race_date'), ['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group">
